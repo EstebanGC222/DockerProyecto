@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bienvenido a la aplicación Flask."
+    return "Bienvenido a la aplicación."
 
 # Configuración de conexión a la base de datos PostgreSQL
 db = psycopg2.connect(
@@ -69,6 +69,18 @@ def login():
         return jsonify({"message": "Credenciales incorrectas"}), 401
 
 # CRUD de ítems
+
+# Leer usuarios
+@app.route('/users', methods=['GET'])
+def get_users():
+    with db.cursor() as cursor:
+        cursor.execute("SELECT id, username FROM users")
+        users = cursor.fetchall()
+
+    # Convertir los datos en un formato JSON
+    users_list = [{"id": user[0], "username": user[1]} for user in users]
+    return jsonify(users_list), 200
+
 
 # Crear ítem
 @app.route('/items', methods=['POST'])
