@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bienvenido a la aplicación."
+    return "Bienvenido a la aplicación con MariaDB"
 
 # Configuración de conexión a la base de datos MariaDB
 db = MySQLdb.connect(
